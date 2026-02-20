@@ -137,11 +137,12 @@ public class DocumentService {
                     // Реестр утверждений
                     ApprovalRegistry registry = ApprovalRegistry.builder()
                             .documentId(id)
+                            .approvedBy(initiator)
                             .approvedAt(LocalDateTime.now())
                             .build();
 
                     approvalRegistryRepository.save(registry);
-
+                    approvalRegistryRepository.flush();
                     return OperationResult.builder()
                             .id(id)
                             .result("SUCCESS")

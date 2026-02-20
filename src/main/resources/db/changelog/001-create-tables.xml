@@ -75,5 +75,17 @@
 
     </changeSet>
 
+    <changeSet id="003-add-approved-by-to-registry" author="dev">
+
+        <addColumn tableName="approval_registry">
+            <column name="approved_by" type="varchar(255)" defaultValue="system"/>
+        </addColumn>
+
+        <addNotNullConstraint
+                tableName="approval_registry"
+                columnName="approved_by"
+                columnDataType="varchar(255)"/>
+
+    </changeSet>
 
 </databaseChangeLog>

@@ -23,4 +23,7 @@ public class ApprovalRegistry {
 
     @Column(nullable = false)
     private LocalDateTime approvedAt;
+
+    @Column(nullable = false)
+    private String approvedBy;
 }

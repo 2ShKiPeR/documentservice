@@ -1,0 +1,6 @@
+EXPLAIN ANALYZE
+SELECT *
+FROM documents
+WHERE status = 'DRAFT'
+ORDER BY created_at
+LIMIT 10;
