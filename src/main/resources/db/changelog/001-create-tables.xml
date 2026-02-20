@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.15.xsd">
+
+    <changeSet id="1" author="dev">
+        <createTable tableName="documents">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="number" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="author" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="version" type="BIGINT"/>
+        </createTable>
+
+        <createTable tableName="document_history">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="document_id" type="BIGINT"/>
+            <column name="action" type="VARCHAR(50)"/>
+            <column name="actor" type="VARCHAR(255)"/>
+            <column name="comment" type="VARCHAR(255)"/>
+            <column name="created_at" type="TIMESTAMP"/>
+        </createTable>
+
+        <createTable tableName="approval_registry">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="document_id" type="BIGINT">
+                <constraints unique="true"/>
+            </column>
+            <column name="approved_at" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="002-add-indexes" author="dev">
+
+        <createIndex indexName="idx_documents_status"
+                     tableName="documents">
+            <column name="status"/>
+        </createIndex>
+
+        <createIndex indexName="idx_documents_author"
+                     tableName="documents">
+            <column name="author"/>
+        </createIndex>
+
+        <createIndex indexName="idx_documents_created_at"
+                     tableName="documents">
+            <column name="created_at"/>
+        </createIndex>
+
+        <createIndex indexName="idx_documents_status_created"
+                     tableName="documents">
+            <column name="status"/>
+            <column name="created_at"/>
+        </createIndex>
+
+    </changeSet>
+
+
+</databaseChangeLog>
