@@ -1,33 +1,54 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
+# ===============================
+# IntelliJ IDEA
+# ===============================
+.idea/
 *.iml
+*.iws
 *.ipr
+out/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# ===============================
+# Maven
+# ===============================
+target/
+dependency-reduced-pom.xml
 
-### VS Code ###
-.vscode/
+# ===============================
+# Logs
+# ===============================
+*.log
+logs/
+
+# ===============================
+# OS files
+# ===============================
+.DS_Store
+Thumbs.db
+
+# ===============================
+# Build files
+# ===============================
+*.class
+
+# ===============================
+# Spring Boot
+# ===============================
+application-local.yml
+application-dev.yml
+
+# ===============================
+# Database
+# ===============================
+*.db
+*.sqlite
+*.h2.db
+
+# ===============================
+# Docker
+# ===============================
+*.env
+
+# ===============================
+# Test reports
+# ===============================
+surefire-reports/
