@@ -7,7 +7,6 @@ import com.example.documentservice.service.DocumentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -19,7 +18,6 @@ class DocumentServiceIntegrationTest {
     @Autowired
     private DocumentRepository documentRepository;
 
-    // 1️⃣ Happy path по одному документу
     @Test
     void happyPath_singleDocument() {
 
@@ -40,7 +38,6 @@ class DocumentServiceIntegrationTest {
         assertThat(updated.getStatus()).isEqualTo(DocumentStatus.APPROVED);
     }
 
-    // 2️⃣ Пакетный submit (через несколько single)
     @Test
     void batchSubmit_partialResults() {
 
@@ -62,10 +59,8 @@ class DocumentServiceIntegrationTest {
                         .build()
         );
 
-        // Первый должен пройти
         documentService.submitSingle(draft.getId(), "User");
 
-        // Второй — должен остаться SUBMITTED
         documentService.submitSingle(alreadySubmitted.getId(), "User");
 
         Document updatedDraft = documentRepository.findById(draft.getId()).orElseThrow();
@@ -75,7 +70,6 @@ class DocumentServiceIntegrationTest {
         assertThat(updatedSubmitted.getStatus()).isEqualTo(DocumentStatus.SUBMITTED);
     }
 
-    // 3️⃣ Пакетный approve с частичным результатом
     @Test
     void batchApprove_partialResults() {
 
@@ -107,7 +101,6 @@ class DocumentServiceIntegrationTest {
         assertThat(updatedDraft.getStatus()).isEqualTo(DocumentStatus.DRAFT);
     }
 
-    // 4️⃣ Откат approve при ошибке записи в регистр
     @Test
     void approveRollback_whenRegistryFails() {
 
@@ -126,7 +119,6 @@ class DocumentServiceIntegrationTest {
 
         Document after = documentRepository.findById(doc.getId()).orElseThrow();
 
-        // Если транзакция корректная — статус должен остаться SUBMITTED
         assertThat(after.getStatus()).isEqualTo(DocumentStatus.SUBMITTED);
     }
 }
